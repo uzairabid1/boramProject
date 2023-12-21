@@ -46,7 +46,7 @@ options.add_argument('--disable-dev-shm-usage')
 options.add_argument('--headless')
 
 
-driver = webdriver.Chrome('./chromedriver')
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options=options)
 
 
 def appendProduct(file_path2, data):
