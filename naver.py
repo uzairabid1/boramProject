@@ -41,12 +41,12 @@ from itertools import product
 # driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
 # driver = webdriver.Chrome(service=Service) # --> run this code once then deactiuvate it like shift + #
-options = Options()
-options.add_argument("--headless=new")
-options.add_argument("--disable-extensions")
-options.add_argument("--disable-dev-shm-usage")
-options.add_argument("--no-sandbox")
-driver = webdriver.Chrome("./chromedriver", options=options)
+options = webdriver.ChromeOptions() 
+options.add_argument('--disable-dev-shm-usage')
+options.add_argument('--headless')
+
+
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options=options)
 
 
 def appendProduct(file_path2, data):
