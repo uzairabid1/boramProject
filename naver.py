@@ -1,4 +1,5 @@
 from selenium import webdriver
+import logging
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
@@ -40,14 +41,13 @@ from itertools import product
 # driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
 # driver = webdriver.Chrome(service=Service) # --> run this code once then deactiuvate it like shift + #
-options = Options()
-# options.add_argument("--headless=new")
-# options.add_argument('--no-sandbox') # Bypass OS security model
-# options.add_argument('--disable-gpu')  # applicable to windows os only
-options.add_argument('start-maximized') # 
-# options.add_argument('disable-infobars')
-# options.add_argument("--disable-extensions")
-driver = webdriver.Chrome(options=options)
+options = webdriver.ChromeOptions() 
+options.add_argument('--disable-dev-shm-usage')
+options.add_argument('--headless=new')
+options.add_argument('--no-sandbox')
+
+
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options=options)
 
 
 def appendProduct(file_path2, data):
@@ -77,7 +77,7 @@ def appendProduct(file_path2, data):
 
 # Input paths here
 
-store_df = pd.read_excel('List_Franchise_Chicken2.xlsx')
+store_df = pd.read_excel('List_Franchise_noChicken2.xlsx')
 locations_df = pd.read_excel('Area_Name_for_Franchise.xlsx')
 combined_data = [f"{restaurant} {area}" for restaurant, area in product(store_df['Search Query'], locations_df['Area_Name'])]
 df = pd.DataFrame({'Search Query': combined_data})
