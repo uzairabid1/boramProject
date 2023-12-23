@@ -41,12 +41,12 @@ from itertools import product
 
 # driver = webdriver.Chrome(service=Service) # --> run this code once then deactiuvate it like shift + #
 options = Options()
-options.add_argument("--headless=new")
-options.add_argument('--no-sandbox') # Bypass OS security model
-options.add_argument('--disable-gpu')  # applicable to windows os only
+# options.add_argument("--headless=new")
+# options.add_argument('--no-sandbox') # Bypass OS security model
+# options.add_argument('--disable-gpu')  # applicable to windows os only
 options.add_argument('start-maximized') # 
-options.add_argument('disable-infobars')
-options.add_argument("--disable-extensions")
+# options.add_argument('disable-infobars')
+# options.add_argument("--disable-extensions")
 driver = webdriver.Chrome(options=options)
 
 
@@ -77,7 +77,7 @@ def appendProduct(file_path2, data):
 
 # Input paths here
 
-store_df = pd.read_excel('List_Franchise_Chicken.xlsx')
+store_df = pd.read_excel('List_Franchise_Chicken2.xlsx')
 locations_df = pd.read_excel('Area_Name_for_Franchise.xlsx')
 combined_data = [f"{restaurant} {area}" for restaurant, area in product(store_df['Search Query'], locations_df['Area_Name'])]
 df = pd.DataFrame({'Search Query': combined_data})
@@ -181,14 +181,7 @@ for idx, value in enumerate(search_query_values):
                 except:
                     category = "NA"
                 try:
-                    link_btn = driver.find_element(By.XPATH, "//a[@class='D_Xqt naver-splugin spi_sns_share']").click()
-                    time.sleep(0.2)
-                    try:
-                        link = driver.find_element(By.CSS_SELECTOR, "a._spi_input_copyurl").get_attribute('href')
-                    except:
-                        link = "NA"
-                    link_btn = driver.find_element(By.CSS_SELECTOR, "a#_btp.share").click()
-                    time.sleep(0.2)
+                    link = driver.find_element(By.XPATH,"//a[@id='_btp.share']").get_attribute('data-url')
                 except:
                     link = 'NA'
                     print("no link")
@@ -742,14 +735,7 @@ for idx, value in enumerate(search_query_values):
                     except:
                         category = "NA"
                     try:
-                        link_btn = driver.find_element(By.XPATH, "//a[@class='D_Xqt naver-splugin spi_sns_share']").click()
-                        time.sleep(0.2)
-                        try:
-                            link = driver.find_element(By.CSS_SELECTOR, "a._spi_input_copyurl").get_attribute('href')
-                        except:
-                            link = "NA"
-                        link_btn = driver.find_element(By.CSS_SELECTOR, "a#_btp.share").click()
-                        time.sleep(0.2)
+                        link = driver.find_element(By.XPATH,"//a[@id='_btp.share']").get_attribute('data-url')
                     except:
                         link = 'NA'
                         print("no link")
