@@ -124,7 +124,7 @@ for idx, value in enumerate(search_query_values):
     try:
         print(value)
         driver.get(f"https://map.naver.com/p/search/{value}?c=6,0,0,0,dh")
-        time.sleep(8)
+        time.sleep(2)
         WebDriverWait(driver, 5).until(
                 EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#searchIframe")))
         element = driver.find_element(By.CSS_SELECTOR, "div#_pcmap_list_scroll_container")
