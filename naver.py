@@ -156,12 +156,15 @@ for idx, value in enumerate(search_query_values):
             if len(stores_css) == 1:
                 if len(driver.window_handles) >= 3:
                     try:
-                        driver.switch_to.window(driver.window_handles[2])
+                        driver.switch_to.window(driver.window_handles[1])    
                         driver.close()
                     except:
                         pass
-                    driver.switch_to.window(driver.window_handles[1])
-                    driver.close()
+                    try:
+                        driver.switch_to.window(driver.window_handles[1])
+                        driver.close()
+                    except:
+                        pass
                     driver.switch_to.window(driver.window_handles[0])
                     
                         
@@ -708,12 +711,15 @@ for idx, value in enumerate(search_query_values):
                 for store_idx in range(0, len(stores)):
                     if len(driver.window_handles) >= 3:
                         try:
-                            driver.switch_to.window(driver.window_handles[2])
+                            driver.switch_to.window(driver.window_handles[1])    
                             driver.close()
                         except:
                             pass
-                        driver.switch_to.window(driver.window_handles[1])
-                        driver.close()
+                        try:
+                            driver.switch_to.window(driver.window_handles[1])
+                            driver.close()
+                        except:
+                            pass
                         driver.switch_to.window(driver.window_handles[0])
                     print("here 3")
                     try:
