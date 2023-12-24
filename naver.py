@@ -166,8 +166,6 @@ for idx, value in enumerate(search_query_values):
                     except:
                         pass
                     driver.switch_to.window(driver.window_handles[0])
-                    
-                        
                    
                 driver.switch_to.default_content()
                 WebDriverWait(driver, 10).until(
@@ -253,6 +251,14 @@ for idx, value in enumerate(search_query_values):
                     driver.switch_to.window(driver.window_handles[1])
                     driver.get(visitor_review)
                     time.sleep(2)
+                    if "/my/" and "review?" in driver.current_url:
+                        driver.close()
+                        driver.switch_to.window(driver.window_handles[0])
+                        store_count = store_count + 1
+                        driver.switch_to.default_content()
+                        WebDriverWait(driver, 10).until(
+                            EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#searchIframe")))
+                        continue
                     review_type = "Visitor Review"
                     try:
                         check_skip = driver.find_element(By.XPATH,"//h2[text()='리뷰']/span[@class='place_section_count']")
@@ -477,7 +483,6 @@ for idx, value in enumerate(search_query_values):
                             print("An error occurred while appending data. Process interrupted.")
                             break
                         print(data)
-                        logging.info('data added.')
 
                     try:
                         try:
@@ -490,6 +495,12 @@ for idx, value in enumerate(search_query_values):
                             continue
                         driver.get(blog_review)
                         time.sleep(1)
+                        if "/my/" and "review?" in driver.current_url:
+                            driver.close()
+                            driver.switch_to.window(driver.window_handles[0])
+                      
+                        
+
                     except:
                         driver.close()
                         driver.switch_to.window(driver.window_handles[0])
@@ -637,7 +648,7 @@ for idx, value in enumerate(search_query_values):
                                 "Have_reply": has_reply,
                                 "Time_reply": time_reply
                             }
-                            
+                            print(data)
                             review_count = review_count + 1
 
                             if not appendProduct(output_file_path, data):
@@ -645,7 +656,6 @@ for idx, value in enumerate(search_query_values):
                                 print("An error occurred while appending data. Process interrupted.")
                                 break
                             print(data)
-                            logging.info('data added.')
 
 
                     except Exception as e:
@@ -817,6 +827,14 @@ for idx, value in enumerate(search_query_values):
                         driver.switch_to.window(driver.window_handles[1])
                         driver.get(visitor_review)
                         time.sleep(2)
+                        if "/my/" and "review?" in driver.current_url:
+                            driver.close()
+                            driver.switch_to.window(driver.window_handles[0])
+                            store_count = store_count + 1
+                            driver.switch_to.default_content()
+                            WebDriverWait(driver, 10).until(
+                                EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#searchIframe")))
+                            continue
                         review_type = "Visitor Review"
                         try:
                             check_skip = driver.find_element(By.XPATH,"//h2[text()='리뷰']/span[@class='place_section_count']")
@@ -1041,7 +1059,6 @@ for idx, value in enumerate(search_query_values):
                                 print("An error occurred while appending data. Process interrupted.")
                                 break
                             print(data)
-                            logging.info('data added.')
 
                         try:
                             try:
@@ -1059,6 +1076,10 @@ for idx, value in enumerate(search_query_values):
                                 continue
                             driver.get(blog_review)
                             time.sleep(1)
+                            if "/my/" and "review?" in driver.current_url:
+                                driver.close()
+                                driver.switch_to.window(driver.window_handles[0])
+                            
                         except:
                             driver.close()
                             driver.switch_to.window(driver.window_handles[0])
@@ -1211,7 +1232,7 @@ for idx, value in enumerate(search_query_values):
                                     "Have_reply": has_reply,
                                     "Time_reply": time_reply
                                 }
-                                
+                                print(data)
                                 review_count = review_count + 1
 
                                 if not appendProduct(output_file_path, data):
@@ -1219,7 +1240,6 @@ for idx, value in enumerate(search_query_values):
                                     print("An error occurred while appending data. Process interrupted.")
                                     break
                                 print(data)
-                                logging.info('data added.')
 
 
                         except Exception as e:
