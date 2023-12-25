@@ -123,8 +123,8 @@ else:
     review_count = 1
 # store_count = 1
 # review_count = 1
-driver.get(f"https://naver.com")
-time.sleep(2)
+# driver.get(f"https://naver.com")
+# time.sleep(2)
 for idx, value in enumerate(search_query_values):
     try:
         print(value)
