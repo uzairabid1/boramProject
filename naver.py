@@ -79,7 +79,7 @@ def appendProduct(file_path2, data):
 # Input paths here
 logging.basicConfig(filename='script.log', level=logging.INFO)
 logging.info('Script started.')
-store_df = pd.read_excel('List_Franchise_noChicken2.xlsx')
+store_df = pd.read_excel('List_Franchise_Chicken2.xlsx')
 locations_df = pd.read_excel('Area_Name_for_Franchise.xlsx')
 combined_data = [f"{restaurant} {area}" for restaurant, area in product(store_df['Search Query'], locations_df['Area_Name'])]
 df = pd.DataFrame({'Search Query': combined_data})
