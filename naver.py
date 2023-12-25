@@ -42,7 +42,7 @@ from itertools import product
 
 # driver = webdriver.Chrome(service=Service) # --> run this code once then deactiuvate it like shift + #
 options = webdriver.ChromeOptions() 
-# options.add_argument('--disable-dev-shm-usage')
+options.add_argument('--disable-dev-shm-usage')
 options.add_argument('--headless=new')
 options.add_argument("--no-sandbox")
 
