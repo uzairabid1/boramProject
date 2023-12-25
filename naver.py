@@ -154,6 +154,12 @@ for idx, value in enumerate(search_query_values):
 
             # for single opening store
             if len(stores_css) == 1:
+                if len(driver.window_handles) == 2:
+                    try:
+                        driver.switch_to.window(driver.window_handles[1])
+                        driver.close()
+                    except:
+                        pass
                 if len(driver.window_handles) >= 3:
                     try:
                         driver.switch_to.window(driver.window_handles[1])    
@@ -719,6 +725,12 @@ for idx, value in enumerate(search_query_values):
                 for store_css in stores_css:
                     stores.append(store_css)
                 for store_idx in range(0, len(stores)):
+                    if len(driver.window_handles) == 2:
+                        try:
+                            driver.switch_to.window(driver.window_handles[1])
+                            driver.close()
+                        except:
+                            pass
                     if len(driver.window_handles) >= 3:
                         try:
                             driver.switch_to.window(driver.window_handles[1])    
