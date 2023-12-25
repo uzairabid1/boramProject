@@ -131,6 +131,7 @@ for idx, value in enumerate(search_query_values):
         element = driver.find_element(By.CSS_SELECTOR, "div#_pcmap_list_scroll_container")
     except:
         print("not found")
+        logging.info("not found")
         continue
 
     next_flag = True
