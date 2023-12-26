@@ -161,12 +161,6 @@ for idx, value in enumerate(search_query_values):
 
             # for single opening store
             if len(stores_css) == 1:
-                if len(driver.window_handles) == 2:
-                    try:
-                        driver.switch_to.window(driver.window_handles[1])
-                        driver.close()
-                    except:
-                        pass
                 if len(driver.window_handles) >= 3:
                     try:
                         driver.switch_to.window(driver.window_handles[1])    
@@ -264,14 +258,6 @@ for idx, value in enumerate(search_query_values):
                     driver.switch_to.window(driver.window_handles[1])
                     driver.get(visitor_review)
                     time.sleep(2)
-                    if "/my/" and "review?" in driver.current_url:
-                        driver.close()
-                        driver.switch_to.window(driver.window_handles[0])
-                        store_count = store_count + 1
-                        driver.switch_to.default_content()
-                        WebDriverWait(driver, 10).until(
-                            EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#searchIframe")))
-                        continue
                     review_type = "Visitor Review"
                     try:
                         check_skip = driver.find_element(By.XPATH,"//h2[text()='리뷰']/span[@class='place_section_count']")
@@ -286,13 +272,27 @@ for idx, value in enumerate(search_query_values):
 
                     try:
                         stop_flag = True
-                        while stop_flag:
-                            try:
-                                see_more_btn = driver.find_element(By.XPATH, "(//span[.='더보기'])[2]/parent::a").click()
-                                time.sleep(0.5)
-                            except:
-                                stop_flag = False
-                                break
+                        try:
+                            total_reviews = int(n_reviews.strip().replace(',',''))
+                        except:
+                            total_reviews = 0
+                        if total_reviews >= 3000:
+                            for count_review in range(0,300):
+                                try:
+                                    see_more_btn = driver.find_element(By.XPATH, "(//span[.='더보기'])[2]/parent::a").click()
+                                    time.sleep(0.5)
+                                except:
+                                    stop_flag = False
+                                    break
+
+                        else:
+                            while stop_flag:
+                                try:
+                                    see_more_btn = driver.find_element(By.XPATH, "(//span[.='더보기'])[2]/parent::a").click()
+                                    time.sleep(0.5)
+                                except:
+                                    stop_flag = False
+                                    break
                     except:
                         print("no see more button")
 
@@ -508,12 +508,6 @@ for idx, value in enumerate(search_query_values):
                             continue
                         driver.get(blog_review)
                         time.sleep(1)
-                        if "/my/" and "review?" in driver.current_url:
-                            driver.close()
-                            driver.switch_to.window(driver.window_handles[0])
-                      
-                        
-
                     except:
                         driver.close()
                         driver.switch_to.window(driver.window_handles[0])
@@ -732,12 +726,6 @@ for idx, value in enumerate(search_query_values):
                 for store_css in stores_css:
                     stores.append(store_css)
                 for store_idx in range(0, len(stores)):
-                    if len(driver.window_handles) == 2:
-                        try:
-                            driver.switch_to.window(driver.window_handles[1])
-                            driver.close()
-                        except:
-                            pass
                     if len(driver.window_handles) >= 3:
                         try:
                             driver.switch_to.window(driver.window_handles[1])    
@@ -846,14 +834,6 @@ for idx, value in enumerate(search_query_values):
                         driver.switch_to.window(driver.window_handles[1])
                         driver.get(visitor_review)
                         time.sleep(2)
-                        if "/my/" and "review?" in driver.current_url:
-                            driver.close()
-                            driver.switch_to.window(driver.window_handles[0])
-                            store_count = store_count + 1
-                            driver.switch_to.default_content()
-                            WebDriverWait(driver, 10).until(
-                                EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#searchIframe")))
-                            continue
                         review_type = "Visitor Review"
                         try:
                             check_skip = driver.find_element(By.XPATH,"//h2[text()='리뷰']/span[@class='place_section_count']")
@@ -868,13 +848,29 @@ for idx, value in enumerate(search_query_values):
 
                         try:
                             stop_flag = True
-                            while stop_flag:
-                                try:
-                                    see_more_btn = driver.find_element(By.XPATH, "(//span[.='더보기'])[2]/parent::a").click()
-                                    time.sleep(0.5)
-                                except:
-                                    stop_flag = False
-                                    break
+                            try:
+                                total_reviews = int(n_reviews.strip().replace(',',''))
+                            except:
+                                total_reviews = 0
+                            if total_reviews >= 3000:
+                                print("inside 3000")
+                                logging.info("inside 3000")
+                                for count_review in range(0,300):
+                                    try:
+                                        see_more_btn = driver.find_element(By.XPATH, "(//span[.='더보기'])[2]/parent::a").click()
+                                        time.sleep(0.5)
+                                    except:
+                                        stop_flag = False
+                                        break
+
+                            else:
+                                while stop_flag:
+                                    try:
+                                        see_more_btn = driver.find_element(By.XPATH, "(//span[.='더보기'])[2]/parent::a").click()
+                                        time.sleep(0.5)
+                                    except:
+                                        stop_flag = False
+                                        break
                         except:
                             print("no see more button")
 
@@ -1095,10 +1091,6 @@ for idx, value in enumerate(search_query_values):
                                 continue
                             driver.get(blog_review)
                             time.sleep(1)
-                            if "/my/" and "review?" in driver.current_url:
-                                driver.close()
-                                driver.switch_to.window(driver.window_handles[0])
-                            
                         except:
                             driver.close()
                             driver.switch_to.window(driver.window_handles[0])
@@ -1326,6 +1318,7 @@ for idx, value in enumerate(search_query_values):
             except:
                 next_flag = False
                 break
+
 
 
 
