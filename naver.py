@@ -127,19 +127,21 @@ time.sleep(2)
 for idx, value in enumerate(search_query_values):
     try:
         print(value)
-        driver.get(f"https://map.naver.com/p/search/{value}?c=6,0,0,0,dh")
+        search_url = f"https://map.naver.com/p/search/{value}?c=6,0,0,0,dh"
+        driver.get(search_url)
+        
         time.sleep(8)
-        logging.info(value)
+        print(driver.current_url)
         WebDriverWait(driver, 5).until(
                 EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#searchIframe")))
         element = driver.find_element(By.CSS_SELECTOR, "div#_pcmap_list_scroll_container")
     except:
         print("not found")
-        logging.info("not found")
         continue
 
     next_flag = True
     while next_flag:
+        try:
             driver.switch_to.default_content()    
             WebDriverWait(driver, 5).until(
                 EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#searchIframe")))
@@ -157,7 +159,6 @@ for idx, value in enumerate(search_query_values):
                                                   "//div[@id='_pcmap_list_scroll_container']/ul/li/div[1]/div[1]/a")
                 
             print(len(stores_css))
-            logging.info(len(stores_css))
 
             # for single opening store
             if len(stores_css) == 1:
@@ -173,10 +174,17 @@ for idx, value in enumerate(search_query_values):
                     except:
                         pass
                     driver.switch_to.window(driver.window_handles[0])
-                   
-                driver.switch_to.default_content()
-                WebDriverWait(driver, 10).until(
-                    EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#entryIframe")))
+                try:
+                    stores_css[0].click()
+                    stores_css[0].click()
+                except:
+                    pass
+                try:
+                    driver.switch_to.default_content()
+                    WebDriverWait(driver, 10).until(
+                        EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#entryIframe")))
+                except:
+                    pass
                 try:
                     driver.find_element(By.XPATH,"//span[contains(text(),'홈')]/parent::a").click()
                     time.sleep(0.5)
@@ -854,7 +862,6 @@ for idx, value in enumerate(search_query_values):
                                 total_reviews = 0
                             if total_reviews >= 3000:
                                 print("inside 3000")
-                                logging.info("inside 3000")
                                 for count_review in range(0,300):
                                     try:
                                         see_more_btn = driver.find_element(By.XPATH, "(//span[.='더보기'])[2]/parent::a").click()
@@ -1318,6 +1325,13 @@ for idx, value in enumerate(search_query_values):
             except:
                 next_flag = False
                 break
+        except TimeoutException:
+            driver.switch_to.window(driver.window_handles[0])
+            driver.switch_to.default_content()
+            WebDriverWait(driver, 10).until(
+            EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#searchIframe")))
+            store_count = store_count + 1
+            continue
 
 
 
