@@ -44,6 +44,7 @@ options = Options()
 # options.add_argument("--headless=new")
 # options.add_argument('--no-sandbox') # Bypass OS security model
 # options.add_argument('--disable-gpu')  # applicable to windows os only
+# options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
 options.add_argument('start-maximized') # 
 # options.add_argument('disable-infobars')
 # options.add_argument("--disable-extensions")
@@ -119,11 +120,15 @@ else:
 # store_count = 1
 # review_count = 1
 driver.get(f"https://naver.com")
+time.sleep(2)
 for idx, value in enumerate(search_query_values):
     try:
         print(value)
-        driver.get(f"https://map.naver.com/p/search/{value}?c=6,0,0,0,dh")
+        search_url = f"https://map.naver.com/p/search/{value}?c=6,0,0,0,dh"
+        driver.get(search_url)
+        
         time.sleep(8)
+        print(driver.current_url)
         WebDriverWait(driver, 5).until(
                 EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#searchIframe")))
         element = driver.find_element(By.CSS_SELECTOR, "div#_pcmap_list_scroll_container")
@@ -133,6 +138,7 @@ for idx, value in enumerate(search_query_values):
 
     next_flag = True
     while next_flag:
+        try:
             driver.switch_to.default_content()    
             WebDriverWait(driver, 5).until(
                 EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#searchIframe")))
@@ -154,13 +160,28 @@ for idx, value in enumerate(search_query_values):
             # for single opening store
             if len(stores_css) == 1:
                 if len(driver.window_handles) >= 3:
-                    driver.switch_to.window(driver.window_handles[1])
-                    driver.close()
+                    try:
+                        driver.switch_to.window(driver.window_handles[1])    
+                        driver.close()
+                    except:
+                        pass
+                    try:
+                        driver.switch_to.window(driver.window_handles[1])
+                        driver.close()
+                    except:
+                        pass
                     driver.switch_to.window(driver.window_handles[0])
-                   
-                driver.switch_to.default_content()
-                WebDriverWait(driver, 10).until(
-                    EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#entryIframe")))
+                try:
+                    stores_css[0].click()
+                    stores_css[0].click()
+                except:
+                    pass
+                try:
+                    driver.switch_to.default_content()
+                    WebDriverWait(driver, 10).until(
+                        EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#entryIframe")))
+                except:
+                    pass
                 try:
                     driver.find_element(By.XPATH,"//span[contains(text(),'홈')]/parent::a").click()
                     time.sleep(0.5)
@@ -256,13 +277,27 @@ for idx, value in enumerate(search_query_values):
 
                     try:
                         stop_flag = True
-                        while stop_flag:
-                            try:
-                                see_more_btn = driver.find_element(By.XPATH, "(//span[.='더보기'])[2]/parent::a").click()
-                                time.sleep(0.5)
-                            except:
-                                stop_flag = False
-                                break
+                        try:
+                            total_reviews = int(n_reviews.strip().replace(',',''))
+                        except:
+                            total_reviews = 0
+                        if total_reviews >= 3000:
+                            for count_review in range(0,300):
+                                try:
+                                    see_more_btn = driver.find_element(By.XPATH, "(//span[.='더보기'])[2]/parent::a").click()
+                                    time.sleep(0.5)
+                                except:
+                                    stop_flag = False
+                                    break
+
+                        else:
+                            while stop_flag:
+                                try:
+                                    see_more_btn = driver.find_element(By.XPATH, "(//span[.='더보기'])[2]/parent::a").click()
+                                    time.sleep(0.5)
+                                except:
+                                    stop_flag = False
+                                    break
                     except:
                         print("no see more button")
 
@@ -697,8 +732,16 @@ for idx, value in enumerate(search_query_values):
                     stores.append(store_css)
                 for store_idx in range(0, len(stores)):
                     if len(driver.window_handles) >= 3:
-                        driver.switch_to.window(driver.window_handles[1])
-                        driver.close()
+                        try:
+                            driver.switch_to.window(driver.window_handles[1])    
+                            driver.close()
+                        except:
+                            pass
+                        try:
+                            driver.switch_to.window(driver.window_handles[1])
+                            driver.close()
+                        except:
+                            pass
                         driver.switch_to.window(driver.window_handles[0])
                     print("here 3")
                     try:
@@ -810,13 +853,28 @@ for idx, value in enumerate(search_query_values):
 
                         try:
                             stop_flag = True
-                            while stop_flag:
-                                try:
-                                    see_more_btn = driver.find_element(By.XPATH, "(//span[.='더보기'])[2]/parent::a").click()
-                                    time.sleep(0.5)
-                                except:
-                                    stop_flag = False
-                                    break
+                            try:
+                                total_reviews = int(n_reviews.strip().replace(',',''))
+                            except:
+                                total_reviews = 0
+                            if total_reviews >= 3000:
+                                print("inside 3000")
+                                for count_review in range(0,300):
+                                    try:
+                                        see_more_btn = driver.find_element(By.XPATH, "(//span[.='더보기'])[2]/parent::a").click()
+                                        time.sleep(0.5)
+                                    except:
+                                        stop_flag = False
+                                        break
+
+                            else:
+                                while stop_flag:
+                                    try:
+                                        see_more_btn = driver.find_element(By.XPATH, "(//span[.='더보기'])[2]/parent::a").click()
+                                        time.sleep(0.5)
+                                    except:
+                                        stop_flag = False
+                                        break
                         except:
                             print("no see more button")
 
@@ -1264,6 +1322,13 @@ for idx, value in enumerate(search_query_values):
             except:
                 next_flag = False
                 break
+        except TimeoutException:
+            driver.switch_to.window(driver.window_handles[0])
+            driver.switch_to.default_content()
+            WebDriverWait(driver, 10).until(
+            EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#searchIframe")))
+            store_count = store_count + 1
+            continue
 
 
 
