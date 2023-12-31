@@ -1277,7 +1277,7 @@ for idx, value in enumerate(search_query_values):
                         # next_flag = False   
 
                     except:
-                        driver.close()
+                        # driver.close()
                         driver.switch_to.window(driver.window_handles[0])
                         data = {
                             "Scrapping_time": scrapping_time,
