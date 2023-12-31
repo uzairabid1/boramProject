@@ -737,7 +737,7 @@ for idx, value in enumerate(search_query_values):
                 for store_idx in range(0, len(stores)):
                     if len(driver.window_handles) >= 3:
                         try:
-                            driver.switch_to.window(driver.window_handles[1])    
+                            driver.switch_to.window(driver.window_handles[2])    
                             driver.close()
                         except:
                             pass
