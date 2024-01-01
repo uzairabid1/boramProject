@@ -1101,7 +1101,7 @@ for idx, value in enumerate(search_query_values):
                             driver.get(blog_review)
                             time.sleep(1)
                         except:
-                            driver.close()
+                            # driver.close()
                             driver.switch_to.window(driver.window_handles[0])
                             data = {
                                 "Scrapping_time": scrapping_time,
