@@ -690,7 +690,7 @@ for idx, value in enumerate(search_query_values):
 
                 except:
                     # driver.close()
-                    driver.switch_to.window(driver.window_handles[0])
+                    # driver.switch_to.window(driver.window_handles[0])
                     data = {
                         "Scrapping_time": scrapping_time,
                         "Link": link,
@@ -1278,7 +1278,7 @@ for idx, value in enumerate(search_query_values):
 
                     except:
                         # driver.close()
-                        driver.switch_to.window(driver.window_handles[0])
+                        # driver.switch_to.window(driver.window_handles[0])
                         data = {
                             "Scrapping_time": scrapping_time,
                             "Link": link,
