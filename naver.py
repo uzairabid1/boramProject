@@ -735,21 +735,18 @@ for idx, value in enumerate(search_query_values):
                 for store_css in stores_css:
                     stores.append(store_css)
                 for store_idx in range(0, len(stores)):
-                    try:
-                        if len(driver.window_handles) >= 3:
-                            try:
-                                driver.switch_to.window(driver.window_handles[2])    
-                                driver.close()
-                            except:
-                                pass
-                            try:
-                                driver.switch_to.window(driver.window_handles[1])
-                                driver.close()
-                            except:
-                                pass
-                    except:
-                        pass
-                    driver.switch_to.window(driver.window_handles[0])
+                    if len(driver.window_handles) >= 3:
+                        try:
+                            driver.switch_to.window(driver.window_handles[2])    
+                            driver.close()
+                        except:
+                            pass
+                        try:
+                            driver.switch_to.window(driver.window_handles[1])
+                            driver.close()
+                        except:
+                            pass
+                        driver.switch_to.window(driver.window_handles[0])
                     print("here 3")
                     try:
                         stores[store_idx].click()
