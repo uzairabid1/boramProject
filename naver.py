@@ -892,6 +892,10 @@ for idx, value in enumerate(search_query_values):
                         for list_review_xp in list_reviews_xp:
                             list_reviews.append(list_review_xp)
                         print(len(list_reviews))
+                        try:
+                            n_reviews = str(len(list_reviews))
+                        except:
+                            n_reviews = "0"
                         for rev_idx in range(0, len(list_reviews)):
                             try:
                                 reviewer_id = driver.find_element(By.XPATH,
@@ -1174,6 +1178,10 @@ for idx, value in enumerate(search_query_values):
                                 blog_reviews.append(blog_review_xp)
 
                             print(str(len(blog_reviews)) + " blog reviews")
+                            try:
+                                n_blog_reviews = len(blog_reviews)
+                            except:
+                                n_blog_reviews = "0"
                             for blog_idx in range(0, len(blog_reviews)):
                                 if blog_check_flag == True:
                                     reviewer_id_xp = f"//li[@class='xg2_q'][{blog_idx + 1}]/a/div[@class='Kt2JN']/div[@class='q29yy']/div[@class='XhMTc']"
