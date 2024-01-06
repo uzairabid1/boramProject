@@ -161,19 +161,21 @@ for idx, value in enumerate(search_query_values):
 
             # for single opening store
             if len(stores_css) == 1:
-                break
-                if len(driver.window_handles) >= 3:
-                    try:
-                        driver.switch_to.window(driver.window_handles[1])    
-                        driver.close()
-                    except:
+                try:
+                        if len(driver.window_handles) >= 3:
+                            try:
+                                driver.switch_to.window(driver.window_handles[2])    
+                                driver.close()
+                            except:
+                                pass
+                            try:
+                                driver.switch_to.window(driver.window_handles[1])
+                                driver.close()
+                            except:
+                                pass
+                            driver.switch_to.window(driver.window_handles[0])
+                except:
                         pass
-                    try:
-                        driver.switch_to.window(driver.window_handles[1])
-                        driver.close()
-                    except:
-                        pass
-                    driver.switch_to.window(driver.window_handles[0])
                    
                 try:
                     stores_css[0].click()
