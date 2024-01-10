@@ -161,6 +161,7 @@ for idx, value in enumerate(search_query_values):
 
             # for single opening store
             if len(stores_css) == 1:
+                break
                 try:
                         if len(driver.window_handles) >= 3:
                             try:
