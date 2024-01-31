@@ -867,10 +867,10 @@ for idx, value in enumerate(search_query_values):
                                 total_reviews = int(n_reviews.strip().replace(',',''))
                             except:
                                 total_reviews = 0
-                            if total_reviews >= 3000:
+                            if total_reviews >= 8000:
                                 print("inside 3000")
                                 logging.info("inside 3000")
-                                for count_review in range(0,300):
+                                for count_review in range(0,800):
                                     try:
                                         see_more_btn = driver.find_element(By.XPATH, "(//span[.='더보기'])[2]/parent::a").click()
                                         time.sleep(0.5)
