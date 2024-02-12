@@ -49469,3 +49469,84 @@ INFO:root:not found
 INFO:root:not found
 INFO:root:not found
 INFO:root:not found
+INFO:root:Script started.
+INFO:root:Script started.
+INFO:root:리미니 부산
+INFO:root:3
+WARNING:urllib3.connectionpool:Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ReadTimeoutError("HTTPSConnectionPool(host='nominatim.openstreetmap.org', port=443): Read timed out. (read timeout=1)")': /search?q=%EB%B6%80%EC%82%B0+%ED%95%B4%EC%9A%B4%EB%8C%80%EA%B5%AC+%ED%95%B4%EC%9A%B4%EB%8C%80%EB%A1%9C+813+NC%EB%B0%B1%ED%99%94%EC%A0%90+7%EC%B8%B5&format=json&limit=1
+INFO:root:리미니 대구
+INFO:root:1
+INFO:root:리미니 인천
+INFO:root:2
+INFO:root:리미니 광주
+INFO:root:not found
+INFO:root:리미니 대전
+INFO:root:1
+INFO:root:리미니 울산
+INFO:root:not found
+INFO:root:리미니 세종
+INFO:root:not found
+INFO:root:리미니 강원
+INFO:root:1
+INFO:root:리미니 충청북도
+INFO:root:1
+INFO:root:리미니 충청남도
+INFO:root:1
+INFO:root:리미니 전라북도
+INFO:root:2
+INFO:root:리미니 전라남도
+INFO:root:not found
+INFO:root:리미니 경상북도
+INFO:root:not found
+INFO:root:리미니 경상남도
+INFO:root:3
+INFO:root:리미니 제주
+INFO:root:not found
+INFO:root:철판&부대찌개 브라더스 부산
+INFO:root:not found
+INFO:root:철판&부대찌개 브라더스 대구
+INFO:root:not found
+INFO:root:철판&부대찌개 브라더스 인천
+INFO:root:not found
+INFO:root:철판&부대찌개 브라더스 광주
+INFO:root:not found
+INFO:root:철판&부대찌개 브라더스 대전
+INFO:root:not found
+INFO:root:철판&부대찌개 브라더스 울산
+INFO:root:not found
+INFO:root:철판&부대찌개 브라더스 세종
+INFO:root:not found
+INFO:root:철판&부대찌개 브라더스 강원
+INFO:root:not found
+INFO:root:철판&부대찌개 브라더스 충청북도
+INFO:root:not found
+INFO:root:철판&부대찌개 브라더스 충청남도
+INFO:root:not found
+INFO:root:철판&부대찌개 브라더스 전라북도
+INFO:root:not found
+INFO:root:철판&부대찌개 브라더스 전라남도
+INFO:root:not found
+INFO:root:철판&부대찌개 브라더스 경상북도
+INFO:root:not found
+INFO:root:철판&부대찌개 브라더스 경상남도
+INFO:root:not found
+INFO:root:철판&부대찌개 브라더스 제주
+INFO:root:not found
+INFO:root:커피빈 부산
+INFO:root:6
+INFO:root:Script started.
+INFO:root:커피빈 서울
+INFO:root:50
+INFO:root:Script started.
+INFO:root:커피빈 대구
+INFO:root:1
+INFO:root:커피빈 인천
+INFO:root:6
+INFO:root:Script started.
+INFO:root:커피빈 광주
+INFO:root:2
+INFO:root:Script started.
+INFO:root:커피빈 대전
+INFO:root:1
+INFO:root:커피빈 울산
+INFO:root:31
