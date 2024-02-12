@@ -760,9 +760,12 @@ for idx, value in enumerate(search_query_values):
                         continue
                     time.sleep(2)
                     
-                    driver.switch_to.default_content()
-                    WebDriverWait(driver, 10).until(
-                    EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#entryIframe")))
+                    try:
+                        driver.switch_to.default_content()
+                        WebDriverWait(driver, 10).until(
+                        EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#entryIframe")))
+                    except TimeoutException:
+                        continue
                     try:
                         driver.find_element(By.XPATH,"//span[contains(text(),'홈')]/parent::a").click()  
                     except:
