@@ -81,11 +81,8 @@ def appendProduct(file_path2, data):
 # Input paths here
 logging.basicConfig(filename='script.log', level=logging.INFO)
 logging.info('Script started.')
-store_df = pd.read_excel('List_Franchise_noChicken2.xlsx')
-locations_df = pd.read_excel('Area_Name_for_Franchise.xlsx')
-combined_data = [f"{restaurant} {area}" for restaurant, area in product(store_df['Search Query'], locations_df['Area_Name'])]
-df = pd.DataFrame({'Search Query': combined_data})
-df['Store_ID_raw'] = range(1, len(df) + 1)
+df = pd.read_excel('Consolidated_File.xlsx')
+
 
 # Let's make it easy for you, if you wish to change just put here
 output_file_path = 'naver_copy_sample.csv'
@@ -133,6 +130,8 @@ for idx, value in enumerate(search_query_values):
         WebDriverWait(driver, 5).until(
                 EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR, "iframe#searchIframe")))
         element = driver.find_element(By.CSS_SELECTOR, "div#_pcmap_list_scroll_container")
+        df = df[df['Search Query'] != value]
+        df.to_excel('Consolidated_File.xlsx', index=False)  # Save the updated DataFrame to the same file
     except:
         print("not found")
         logging.info("not found")
@@ -161,7 +160,7 @@ for idx, value in enumerate(search_query_values):
 
             # for single opening store
             if len(stores_css) == 1:
-                break
+                # break
                 try:
                         if len(driver.window_handles) >= 3:
                             try:
