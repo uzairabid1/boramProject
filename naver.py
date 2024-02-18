@@ -960,7 +960,7 @@ for idx, value in enumerate(search_query_values):
                             try:
                                 try:
                                     review_time_str = driver.find_element(By.XPATH,
-                                                                        f"//li[@class='YeINN'][{rev_idx + 1}]/div[last()-1]/div[last()]/span/time").text.strip().replace(
+                                                                        f"//li[@class='YeINN'][{rev_idx + 1}]/div[last()-1]/div/div/span/time").text.strip().replace(
                                         '목', '')
                                 except:
                                     try:
