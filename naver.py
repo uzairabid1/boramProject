@@ -208,7 +208,7 @@ for idx, value in enumerate(search_query_values):
                 except:
                     category = "NA"
                 try:
-                    link = driver.find_element(By.XPATH,"//a[@id='_btp.share']").get_attribute('data-url')
+                    link = driver.current_url()
                 except:
                     link = 'NA'
                     print("no link")
@@ -234,28 +234,8 @@ for idx, value in enumerate(search_query_values):
                     website_store = driver.find_element(By.CSS_SELECTOR, "a.CHmqa").get_attribute('href')
                 except:
                     website_store = 'NA'
-
-                try:
-                    certificate = driver.find_element(By.XPATH,
-                                                      "//span[contains(text(),'수상 및 인증')]/parent::strong/following-sibling::div/ul/li/a").text.strip()
-                except:
-                    certificate = "NA"
                 review_type = ""
 
-                location = None
-                if address != 'NA':
-                    try:
-                        geolocator = Nominatim(user_agent='meow')
-                        location = geolocator.geocode(address)
-                    except:
-                        location = None
-
-                if location is None:
-                    lat = 'NA'
-                    lon = 'NA'
-                else:
-                    lat = location.latitude
-                    lon = location.longitude
                 try:
                     try:
                         visitor_review = driver.find_element(By.XPATH, "//span[.='리뷰']/parent::a").get_attribute('href')
@@ -319,24 +299,6 @@ for idx, value in enumerate(search_query_values):
                                                               f"//li[@class='YeINN'][{rev_idx + 1}]/div/a[2]/div[1]").text.strip()
                         except:
                             reviewer_id = "NA"
-                        try:
-                            reviewer_n_reviews = driver.find_element(By.XPATH,
-                                                                     f"//li[@class='YeINN'][{rev_idx + 1}]/div[1]/a[2]/div/span[1]").text.strip().replace(
-                                "리뷰 ", '')
-                        except:
-                            reviewer_n_reviews = 'NA'
-                        try:
-                            reviewer_n_photos = driver.find_element(By.XPATH,
-                                                                    f"//li[@class='YeINN'][{rev_idx + 1}]/div[1]/a[2]/div/span[2]").text.strip().replace(
-                                "사진 ", '')
-                        except:
-                            reviewer_n_photos = 'NA'
-                        try:
-                            reviewer_n_followers = driver.find_element(By.XPATH,
-                                                                       f"//li[@class='YeINN'][{rev_idx + 1}]/div[1]/a[2]/div/span[contains(.,'팔로워 ')]").text.strip().replace(
-                                "팔로워 ", '')
-                        except:
-                            reviewer_n_followers = 'NA'
 
                         try:
                             review_written = driver.find_element(By.XPATH,
@@ -393,20 +355,6 @@ for idx, value in enumerate(search_query_values):
                                     review_time = matches2[0]
                         except:
                             review_time = "NA"
-                        try:
-                            has_reply_xp = driver.find_element(By.XPATH, f"//li[@class='YeINN'][{rev_idx + 1}]/div[6]")
-                            if has_reply_xp:
-                                try:
-                                    time_reply = driver.find_element(By.XPATH,
-                                                                     f"//li[@class='YeINN'][{rev_idx + 1}]/div[6]/div/span/time").text.strip().replace(
-                                        '목', '')
-                                except:
-                                    time_reply = "NA"
-                                has_reply = 'Yes'
-                        except:
-                            has_reply = 'No'
-                            time_reply = "NA"
-
                         try:
                             nth_visit = driver.find_element(By.XPATH,
                                                             f"//li[@class='YeINN'][{rev_idx + 1}]/div[last()-1]/div[last()]/span[2]").text.strip()
@@ -475,19 +423,13 @@ for idx, value in enumerate(search_query_values):
                             "Store Rating": store_rating,
                             "Category": category,
                             "Website Store": website_store,
-                            "Address": address,
-                            "Longitude": lon,
-                            "Latitude": lat,
+                            "Address": address,       
                             "N_Reviews": n_reviews,
                             "N_Blog_Reviews": n_blog_reviews,
                             "Booking Hub Button Name": booking_hub,
-                            "Certificate Button": certificate,
                             "Review_position": review_position,
                             "Review_Type": review_type,
                             "Reviewer_ID": reviewer_id,
-                            "Reviewer_N_reviews": reviewer_n_reviews,
-                            "Reviewer_N_photos": reviewer_n_photos,
-                            "Reviewer_N_followers": reviewer_n_followers,
                             "Review_written": review_written,
                             "# Reviews_selected": no_reviews_selected,
                             "Review_selected": review_selected_string,
@@ -497,8 +439,6 @@ for idx, value in enumerate(search_query_values):
                             "Proof method": proof_method,
                             "Rating": rating,
                             "Visit_Day": visit_day,
-                            "Have_reply": has_reply,
-                            "Time_reply": time_reply
                         }
                         review_count = review_count + 1
 
@@ -532,19 +472,13 @@ for idx, value in enumerate(search_query_values):
                             "Store Rating": store_rating,
                             "Category": category,
                             "Website Store": website_store,
-                            "Address": address,
-                            "Longitude": lon,
-                            "Latitude": lat,
+                            "Address": address,      
                             "N_Reviews": n_reviews,
                             "N_Blog_Reviews": n_blog_reviews,
                             "Booking Hub Button Name": booking_hub,
-                            "Certificate Button": certificate,
                             "Review_position": 'NA',
                             "Review_Type": 'NA',
                             "Reviewer_ID": 'NA',
-                            "Reviewer_N_reviews": 'NA',
-                            "Reviewer_N_photos": 'NA',
-                            "Reviewer_N_followers": 'NA',
                             "Review_written": 'NA',
                             "# Reviews_selected": 'NA',
                             "Review_selected": 'NA',
@@ -627,8 +561,6 @@ for idx, value in enumerate(search_query_values):
                                                                     proof_method_xp).text.strip()
                                 except:
                                     proof_method = 'NA'
-                            has_reply = 'NA'
-                            time_reply = 'NA'
                             review_id = f"B{review_count}"
                             blog_review_pos = blog_idx + 1
                             data = {
@@ -641,19 +573,13 @@ for idx, value in enumerate(search_query_values):
                                 "Store Rating": store_rating,
                                 "Category": category,
                                 "Website Store": website_store,
-                                "Address": address,
-                                "Longitude": lon,
-                                "Latitude": lat,
+                                "Address": address,                             
                                 "N_Reviews": n_reviews,
                                 "N_Blog_Reviews": n_blog_reviews,
                                 "Booking Hub Button Name": booking_hub,
-                                "Certificate Button": certificate,
                                 "Review_position": blog_review_pos,
                                 "Review_Type": review_type2,
                                 "Reviewer_ID": reviewer_id,
-                                "Reviewer_N_reviews": "NA",
-                                "Reviewer_N_photos": "NA",
-                                "Reviewer_N_followers": "NA",
                                 "Review_written": review_written,
                                 "# Reviews_selected": "NA",
                                 "Review_selected": "NA",
@@ -663,8 +589,6 @@ for idx, value in enumerate(search_query_values):
                                 "Proof method": proof_method,
                                 "Rating": rating,
                                 "Visit_Day": 'NA',
-                                "Have_reply": has_reply,
-                                "Time_reply": time_reply
                             }
                             print(data)
                             review_count = review_count + 1
@@ -704,18 +628,12 @@ for idx, value in enumerate(search_query_values):
                         "Category": category,
                         "Website Store": website_store,
                         "Address": address,
-                        "Longitude": lon,
-                        "Latitude": lat,
                         "N_Reviews": n_reviews,
                         "N_Blog_Reviews": n_blog_reviews,
                         "Booking Hub Button Name": booking_hub,
-                        "Certificate Button": certificate,
                         "Review_position": 'NA',
                         "Review_Type": 'NA',
                         "Reviewer_ID": 'NA',
-                        "Reviewer_N_reviews": 'NA',
-                        "Reviewer_N_photos": 'NA',
-                        "Reviewer_N_followers": 'NA',
                         "Review_written": 'NA',
                         "# Reviews_selected": 'NA',
                         "Review_selected": 'NA',
@@ -790,7 +708,7 @@ for idx, value in enumerate(search_query_values):
                     except:
                         category = "NA"
                     try:
-                        link = driver.find_element(By.XPATH,"//a[@id='_btp.share']").get_attribute('data-url')
+                        link = driver.current_url()
                     except:
                         link = 'NA'
                         print("no link")
@@ -816,28 +734,7 @@ for idx, value in enumerate(search_query_values):
                         website_store = driver.find_element(By.CSS_SELECTOR, "a.CHmqa").get_attribute('href')
                     except:
                         website_store = 'NA'
-
-                    try:
-                        certificate = driver.find_element(By.XPATH,
-                                                        "//span[contains(text(),'수상 및 인증')]/parent::strong/following-sibling::div/ul/li/a").text.strip()
-                    except:
-                        certificate = "NA"
                     review_type = ""
-
-                    location = None
-                    if address != 'NA':
-                     try:
-                        geolocator = Nominatim(user_agent='meow')
-                        location = geolocator.geocode(address)
-                     except:
-                         location = None
-
-                    if location is None:
-                        lat = 'NA'
-                        lon = 'NA'
-                    else:
-                        lat = location.latitude
-                        lon = location.longitude
 
                     try:
                         try:
@@ -908,25 +805,6 @@ for idx, value in enumerate(search_query_values):
                             except:
                                 reviewer_id = "NA"
                             try:
-                                reviewer_n_reviews = driver.find_element(By.XPATH,
-                                                                        f"//li[@class='YeINN'][{rev_idx + 1}]/div[1]/a[2]/div/span[1]").text.strip().replace(
-                                    "리뷰 ", '')
-                            except:
-                                reviewer_n_reviews = 'NA'
-                            try:
-                                reviewer_n_photos = driver.find_element(By.XPATH,
-                                                                        f"//li[@class='YeINN'][{rev_idx + 1}]/div[1]/a[2]/div/span[2]").text.strip().replace(
-                                    "사진 ", '')
-                            except:
-                                reviewer_n_photos = 'NA'
-                            try:
-                                reviewer_n_followers = driver.find_element(By.XPATH,
-                                                                        f"//li[@class='YeINN'][{rev_idx + 1}]/div[1]/a[2]/div/span[contains(.,'팔로워 ')]").text.strip().replace(
-                                    "팔로워 ", '')
-                            except:
-                                reviewer_n_followers = 'NA'
-
-                            try:
                                 review_written = driver.find_element(By.XPATH,
                                                                     f"//li[@class='YeINN'][{rev_idx + 1}]/div[@class='ZZ4OK IwhtZ']").text.strip()
                             except:
@@ -981,19 +859,6 @@ for idx, value in enumerate(search_query_values):
                                         review_time = matches2[0]
                             except:
                                 review_time = "NA"
-                            try:
-                                has_reply_xp = driver.find_element(By.XPATH, f"//li[@class='YeINN'][{rev_idx + 1}]/div[6]")
-                                if has_reply_xp:
-                                    try:
-                                        time_reply = driver.find_element(By.XPATH,
-                                                                        f"//li[@class='YeINN'][{rev_idx + 1}]/div[6]/div/span/time").text.strip().replace(
-                                            '목', '')
-                                    except:
-                                        time_reply = "NA"
-                                    has_reply = 'Yes'
-                            except:
-                                has_reply = 'No'
-                                time_reply = "NA"
 
                             try:
                                 nth_visit = driver.find_element(By.XPATH,
@@ -1064,18 +929,12 @@ for idx, value in enumerate(search_query_values):
                                 "Category": category,
                                 "Website Store": website_store,
                                 "Address": address,
-                                "Longitude": lon,
-                                "Latitude": lat,
                                 "N_Reviews": n_reviews,
                                 "N_Blog_Reviews": n_blog_reviews,
-                                "Booking Hub Button Name": booking_hub,
-                                "Certificate Button": certificate,
+                                "Booking Hub Button Name": booking_hub,                               
                                 "Review_position": review_position,
                                 "Review_Type": review_type,
                                 "Reviewer_ID": reviewer_id,
-                                "Reviewer_N_reviews": reviewer_n_reviews,
-                                "Reviewer_N_photos": reviewer_n_photos,
-                                "Reviewer_N_followers": reviewer_n_followers,
                                 "Review_written": review_written,
                                 "# Reviews_selected": no_reviews_selected,
                                 "Review_selected": review_selected_string,
@@ -1085,8 +944,6 @@ for idx, value in enumerate(search_query_values):
                                 "Proof method": proof_method,
                                 "Rating": rating,
                                 "Visit_Day": visit_day,
-                                "Have_reply": has_reply,
-                                "Time_reply": time_reply
                             }
                             review_count = review_count + 1
 
@@ -1126,18 +983,12 @@ for idx, value in enumerate(search_query_values):
                                 "Category": category,
                                 "Website Store": website_store,
                                 "Address": address,
-                                "Longitude": lon,
-                                "Latitude": lat,
                                 "N_Reviews": n_reviews,
                                 "N_Blog_Reviews": n_blog_reviews,
-                                "Booking Hub Button Name": booking_hub,
-                                "Certificate Button": certificate,
+                                "Booking Hub Button Name": booking_hub,                               
                                 "Review_position": 'NA',
                                 "Review_Type": 'NA',
                                 "Reviewer_ID": 'NA',
-                                "Reviewer_N_reviews": 'NA',
-                                "Reviewer_N_photos": 'NA',
-                                "Reviewer_N_followers": 'NA',
                                 "Review_written": 'NA',
                                 "# Reviews_selected": 'NA',
                                 "Review_selected": 'NA',
@@ -1229,8 +1080,7 @@ for idx, value in enumerate(search_query_values):
                                                                     proof_method_xp).text.strip()
                                 except:
                                     proof_method = 'NA'
-                                has_reply = 'NA'
-                                time_reply = 'NA'
+                        
                                 review_id = f"B{review_count}"
                                 blog_review_pos = blog_idx + 1
                                 data = {
@@ -1243,19 +1093,13 @@ for idx, value in enumerate(search_query_values):
                                     "Store Rating": store_rating,
                                     "Category": category,
                                     "Website Store": website_store,
-                                    "Address": address,
-                                    "Longitude": lon,
-                                    "Latitude": lat,
+                                    "Address": address,                                    
                                     "N_Reviews": n_reviews,
                                     "N_Blog_Reviews": n_blog_reviews,
-                                    "Booking Hub Button Name": booking_hub,
-                                    "Certificate Button": certificate,
+                                    "Booking Hub Button Name": booking_hub,                                    
                                     "Review_position": blog_review_pos,
                                     "Review_Type": review_type2,
-                                    "Reviewer_ID": reviewer_id,
-                                    "Reviewer_N_reviews": "NA",
-                                    "Reviewer_N_photos": "NA",
-                                    "Reviewer_N_followers": "NA",
+                                    "Reviewer_ID": reviewer_id,                                    
                                     "Review_written": review_written,
                                     "# Reviews_selected": "NA",
                                     "Review_selected": "NA",
@@ -1264,9 +1108,7 @@ for idx, value in enumerate(search_query_values):
                                     "Nth_visit": "NA",
                                     "Proof method": proof_method,
                                     "Rating": rating,
-                                    "Visit_Day": 'NA',
-                                    "Have_reply": has_reply,
-                                    "Time_reply": time_reply
+                                    "Visit_Day": 'NA',                                    
                                 }
                                 print(data)
                                 review_count = review_count + 1
@@ -1305,19 +1147,13 @@ for idx, value in enumerate(search_query_values):
                             "Store Rating": store_rating,
                             "Category": category,
                             "Website Store": website_store,
-                            "Address": address,
-                            "Longitude": lon,
-                            "Latitude": lat,
+                            "Address": address,                           
                             "N_Reviews": n_reviews,
                             "N_Blog_Reviews": n_blog_reviews,
-                            "Booking Hub Button Name": booking_hub,
-                            "Certificate Button": certificate,
+                            "Booking Hub Button Name": booking_hub,                            
                             "Review_position": 'NA',
                             "Review_Type": 'NA',
-                            "Reviewer_ID": 'NA',
-                            "Reviewer_N_reviews": 'NA',
-                            "Reviewer_N_photos": 'NA',
-                            "Reviewer_N_followers": 'NA',
+                            "Reviewer_ID": 'NA',                            
                             "Review_written": 'NA',
                             "# Reviews_selected": 'NA',
                             "Review_selected": 'NA',
